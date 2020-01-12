@@ -1,47 +1,45 @@
 import { Cart } from 'src/models/Cart.model';
 import { ActionModel } from 'src/models/Action.model';
-import { CartAction } from '../actions-redux/cart.action';
+import { CartAction, Add, Remove } from '../actions-redux/cart.action';
 import { Product } from 'src/models/Product.model';
+import { createReducer, on } from '@ngrx/store';
 
 
 export const myCart = new Cart();
 
-export function cartReducer(state = myCart, action: ActionModel<Product>){
-  switch(action.type){
-    case CartAction.add:{
-      state.products.push(action.payload)
-      state.priceTotal = calculatePrice(state.products);
-      console.log("Add state >> " , state);
+const _cartReducer = createReducer( myCart, 
+
+   on(Add, (state,  newProduct  ) => _cartAdd(state, newProduct ) ),
+   on(Remove, (state, product)=> _cartRemove(state, product))
+
+  
+  );
+
+const _cartAdd = ( state = myCart , product : Product  ) => {
+      state.products.push(product)
+      state.priceTotal = _calculatePrice(state.products);
       return state
-    };
-    case CartAction.remove:{
-      const index = state.products.indexOf(action.payload);
-      state.products.splice(index, 1);
-      state.priceTotal = calculatePrice(state.products);
-      console.log("Remove state >>> ", state);
-      return state;
-    };
-    case CartAction.clear:{
-      state.products = [];
-      state.priceTotal = calculatePrice(state.products);
-      console.log("Clear state >> ", state);
-      return state;
-    }
-
-    default:
-        return state;
-
-  }
 }
 
-function calculatePrice( products : Product[]) : number {
-  const total = 
-  products
-  .map( product => product.price)
-  .reduce( (currentPrice, product ) => {
-    return currentPrice + product
-  })
+const _cartRemove = (state = myCart, product: Product) => {
+      const index = state.products.indexOf(product);
+      state.products.splice(index, 1);
+      state.priceTotal = _calculatePrice(state.products);
+      return state;
+
+}
+
+export function cartReducer(state, action){
+  return _cartReducer(state,action)
+}
+
+function _calculatePrice( products : Product[]) : number {
   
-  console.log(total)
-  return total;
+  let total = 0;
+
+  for (const product of products) {
+    total += product.price
+  }
+  
+   return total;
 }

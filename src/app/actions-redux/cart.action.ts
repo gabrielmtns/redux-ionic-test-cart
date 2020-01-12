@@ -1,7 +1,5 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { Product } from 'src/models/Product.model';
-import { Cart } from 'src/models/Cart.model';
-import { ActionModel } from 'src/models/Action.model';
 
 export enum CartAction{
   add =  'add',
@@ -9,14 +7,18 @@ export enum CartAction{
   clear = 'cle'
 }
 
-export const Add = ( product : Product) => {
-  return <ActionModel<Product>>{ type: CartAction.add, payload: product}
-}
+export const Add = createAction(
+  CartAction.add,
+  props<Product>()
+)
 
-export const Remove = (product : Product) => {
-  return <ActionModel<Product>>{type: CartAction.remove, payload : product}
-}
+export const Remove = createAction(
+  CartAction.remove, 
+  props<Product>()
+)
 
-export const Clear = () => {
-  return <ActionModel<Product>>{type: CartAction.clear, payload : null}
-}
+export const Clear = createAction(
+  CartAction.clear
+)
+
+ 

@@ -4,8 +4,11 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+     <span> Total : {{ (cart$ | async).priceTotal | currency : 'BRL' }}  </span> 
+    
     <ion-buttons slot="end">
       <ion-button>
+        
         <ion-icon name="cart" slot="start"></ion-icon>
         <ion-badge color="danger"> {{ (cart$ | async).products.length }} </ion-badge>
       </ion-button>

@@ -1,19 +1,24 @@
 
 <ion-card >
-  <img  class="image-config" [src]="product.images[0]" alt=""/>
+  <img  class="image-config" [src]="product.image" alt=""/>
   <ion-card-header>
    
-    <ion-card-subtitle>{{ product.title }} </ion-card-subtitle>
-    <ion-card-title> {{ product.price  |  currency : 'BRL'}} </ion-card-title>
+    <ion-card-subtitle>{{ product?.title }} </ion-card-subtitle>
+    <ion-card-title> {{ product?.price  |  currency : 'BRL'}} </ion-card-title>
 
   </ion-card-header>
   <ion-card-content>
     <p>
-     {{ product.description }}
+     {{ product?.description }}
     </p>
     <ion-button  color="primary" expand="full" ion-item (click)="addProductToCart(product)"> 
       <ion-icon slot="start" name="cart"></ion-icon>
-      Add to cart</ion-button>
+      Add to cart
+    </ion-button>
+      <ion-button color="danger" expand="full"  ion-item (click)="removeProduct(product)">
+        <ion-icon  slot="start" name="trash" ></ion-icon>
+        Remove test
+      </ion-button>
 
   </ion-card-content>
 </ion-card>

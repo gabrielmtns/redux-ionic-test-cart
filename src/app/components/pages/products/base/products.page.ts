@@ -16,15 +16,15 @@ export class ProductsPage {
       description: "Super notebook!" , 
       price: 4000, 
       title : "Notebook Dell", 
-      images: ["../../../../../assets/imgs/notebook.jpg"]
+      image: "../../../../../assets/imgs/notebook.jpg"
     },
     {
       _id: "AB31" , 
       category: "tecnology", 
       description: "Amazig ipad, max of perfomace!" , 
       price: 2400, 
-      title : "Tablet ", 
-      images: ["../../../../../assets/imgs/tablet.jpg"]
+      title : "Tablet ",
+      image: "../../../../../assets/imgs/tablet.jpg"
     }
 
   ]

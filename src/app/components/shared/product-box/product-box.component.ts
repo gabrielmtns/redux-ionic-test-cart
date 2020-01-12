@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { Cart } from 'src/models/Cart.model';
 import { Observable } from 'rxjs';
 import { ToastController } from '@ionic/angular';
-import { Add } from 'src/app/actions-redux/cart.action';
+import { Add, Remove } from 'src/app/actions-redux/cart.action';
 import { Product } from 'src/models/Product.model';
 
 @Component({
@@ -26,7 +26,8 @@ export class ProductBoxComponent implements OnInit {
   ngOnInit() {}
 
   async addProductToCart(product : Product){
-    this.store.dispatch(Add(product));
+    this.store.dispatch( Add(product) );
+
     const messagePopUp = await this.toastCtrl.create({
       message: `${product.title} has been add to cart`,
       duration: 3000,
@@ -36,4 +37,7 @@ export class ProductBoxComponent implements OnInit {
     messagePopUp.present();
   }
 
+  async removeProduct(product: Product){
+    this.store.dispatch( Remove(product) ); //test
+  }
 }
